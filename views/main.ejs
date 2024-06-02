@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>랜덤food</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="foodDisplay"><%= food %></h1>
+    <div>
+      <button onclick="getFood()">클릭</button>
+      <button onclick="getFoodReset()">초기화</button>
+    </div>
+
+    <script>
+      function getFood() {
+        const requestOptions = {
+          method: "PUT",
+          redirect: "follow",
+        };
+
+        fetch("/food", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("foodDisplay").innerText = data.food;
+          })
+          .catch((error) => console.error(error));
+      }
+      function getFoodReset() {
+        const requestOptions = {
+          method: "DELETE",
+          redirect: "follow",
+        };
+
+        fetch("/food", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("foodDisplay").innerText = data.food;
+          })
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
+</html>
